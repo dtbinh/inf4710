@@ -50,7 +50,7 @@ function code=lz77 (signal, tailleFG, tailleDict)
         %fprintf('%d %d %d \n',meilleur_triplet);
         code = [code meilleur_triplet];
         
-        decalage = meilleur_triplet(2) + 1;
+        decalage = uint32(meilleur_triplet(2) + 1);
         
         %on decale le dictionnaire
         dict = dict(1+decalage:end);
@@ -65,7 +65,7 @@ function code=lz77 (signal, tailleFG, tailleDict)
         end
         
         %on ajuste le signal:
-        signal = signal(decalage+1:end);
+        signal = signal((decalage+1):end);
         
         %on a fini de traiter le signal?
         if(isempty(fenetreDroite))
