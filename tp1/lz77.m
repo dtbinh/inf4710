@@ -8,61 +8,69 @@ function code=lz77 (signal, tailleFG, tailleDict)
     % les 
     dict = uint8(zeros(1, tailleDict));
     fenetreDroite = signal(1:tailleFG-tailleDict);
-    fenetre = [dict fenetreDroite];
+    signal = signal(length(fenetreDroite)+1:end);
         
     code = [];
     
-    %index sur le signal quon compresse
-    i=1;
-    while(i<=size(signal,2))
-        % on commence par chercher une occurence dans le dict.
-        meilleurIndexDict = 0;
-        meilleurLongueur = 0;
-        for iD=1:tailleDict
-            if(dict(iD)==signal(i))
-                % on a trouve un debut possible. on regarde quelle longueur
-                % max on peut faire:
-                
-                %1: on copie l'index:
-                jD = iD+1;
-                
-                %2: on cherche la longueur max:
-                while(jD <= tailleFG)
-                    if(dict(iD) == signal(i+(jD-iD)))
-                        % PAS FINI, RENDU ICI! D'AILLEUR, LA CONDITION DANS
-                        % LE IF LAISSE A DESIRER.
-                        jD = jD + 1;
+    continuer = 1;
+    while(continuer == 1)
+        %on place la fenetre
+        fenetre = [dict fenetreDroite];
+
+        %pour chaque valeur du dictionnaire, on trouve la concurrence max:
+        possibilites = [];
+        for i_d = 1:tailleDict
+            longueur = 0;
+            difference = 0;
+            for j_d = i_d:length(fenetre)
+                if(j_d-i_d+1<=length(fenetreDroite))
+                    if(fenetre(j_d) == fenetreDroite(j_d-i_d+1))
+                        longueur = longueur+1;
                     else
+                        difference = fenetreDroite(j_d-i_d+1);
                         break;
                     end
+                else
+                    difference = fenetreDroite(1);
                 end
-                
-                %3: si cette longueur est mieux, on en prend note.
-                cetteLongueur = jD - iD;
-                if(cetteLongueur>=meilleurLongueur)
-                    meilleurLongueur = cetteLongueur;
-                    meilleurIndexDict = iD;
+            end
+            possibilites = [possibilites;i_d longueur difference];
+        end
+        
+        %on trouve le meilleur triplet de toutes les possibilites.
+        meilleur_triplet = [0 0 fenetreDroite(1)];
+        for i_rangee_possible = 1:length(possibilites)
+            if(possibilites(i_rangee_possible,2)~=0)
+                if(possibilites(i_rangee_possible,2) >= meilleur_triplet(2))
+                    meilleur_triplet = possibilites(i_rangee_possible,:);
                 end
             end
         end
-        % on a trouve la plus longue sequence.
-        % si aucune a ete trouvee, (mailleurLongueur = 0),
-        if(meilleurLongueur == 0)
-            % on ajoute le triplet (0, 0, valeur) a la sortie.
-            triplet = [0 0 signal(i)];
-        else
-            % sinon, on ajoute le triplet suivant: 
-            %index 1: combien de symboles derriere est-ce quon a trouve la
-            %suite?
-            triplet(1) = tailleDict - meilleurIndexDict;
-            %quelle est sa longueur?
-            triplet(2) = meilleurLongueur;
-            %quel symbole stoppe la suite?
-            triplet(3) = #$#$#$#$#$;
+        %on a le meilleur triplet. on l'ajoute au code.
+        %fprintf('%d %d %d \n',meilleur_triplet);
+        code = [code meilleur_triplet];
+        
+        decalage = meilleur_triplet(2) + 1;
+        
+        %on decale le dictionnaire
+        dict = dict(1+decalage:end);
+        %on colle ces valeurs a la fin du dict.
+        dict = [dict fenetreDroite(1:min([length(fenetreDroite) decalage]))];
+        
+        %on ajuste la fenetreDroite.
+        fenetreDroite = fenetreDroite(decalage+1:end);
+        %on colle ces valeurs a la fin du dict. si il en reste
+        if(~isempty(signal))
+            fenetreDroite = [fenetreDroite signal(1:min(decalage, length(signal)))];
         end
         
+        %on ajuste le signal:
+        signal = signal(decalage+1:end);
         
-        code = [code triplet];
-        i=i+1;
+        %on a fini de traiter le signal?
+        if(isempty(fenetreDroite))
+            continuer = 0;
+        end
+        
     end
 end
