@@ -1,0 +1,11 @@
+Charles Étienne Lalonde 1531686
+Gabriel Couvrette
+
+C - Taux de compression de la manipulation 1 : 1.1905
+    Taux de compression de la manipulation 2 : 0.4528
+
+D - Cette méthode de compression compresse le premier signal d'environ 20%, mais elle ne compresse pas du tout le fichier lena.gif: la taille du signal "compressé" est plus de deux fois plus grande que le signal original.
+
+Afin d'améliorer l'efficacité de l'algorithme sur le second signal, il semblerait judicieux d'augmenter le taille de la fenêtre et du dictionnaire afin de pouvoir récupérer plus de triplets à partir du dictionnaire.
+
+E - Afin de pouvoir traiter des chaînes de 300 symboles, aucun changement n'est nécessaire à l'énoncé A. Pour que le traitement soit efficace, par contre, il sera probablement nécessaire d'utiliser des valeurs de N et de n plus élevées.
