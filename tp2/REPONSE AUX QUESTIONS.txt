@@ -1,0 +1,5 @@
+MANIPULATION1: 
+- Pour chacune des trois images, la manipulation1 n'a eu aucun effet sur la qualité de l'image.
+En effet, la différence entre initial et final donne une matrice complètement nulle. C'est
+normal, car on n'a retiré aucune fréquence de la DTC, donc toute l'information est conservée.
+Si on avait appliquée la quantification, par contre, l'image aurait été dégradée d'un certain niveau.
