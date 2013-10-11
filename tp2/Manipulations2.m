@@ -1,7 +1,7 @@
 mat_qlty = MatQuant(10);
 
 voiture_ori = imread('Car.bmp');
-voiture_blocs = double(decoupage(voiture_ori));
+voiture_blocs = decoupage(voiture_ori);
 
 
 %on dct2 les blocs

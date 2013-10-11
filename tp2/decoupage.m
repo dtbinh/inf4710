@@ -1,6 +1,6 @@
 function [blocs, m, n] = decoupage(image)
     [m n] = size(image);
-    blocs = uint8(zeros(8,8,m/8*n/8));
+    blocs = double(zeros(8,8,m/8*n/8));
     i_bloc=1;
     for i=1:m/8
         for j=1:n/8

@@ -1,5 +1,5 @@
 voiture_ori = imread('Car.bmp');
-voiture_blocs = double(decoupage(voiture_ori));
+voiture_blocs = decoupage(voiture_ori);
 
 
 %on dct2 les blocs
@@ -29,7 +29,7 @@ imshow(car_diff)
 
 %% fleur
 fleur_ori = imread('Fleurs.bmp');
-fleur_blocs = double(decoupage(fleur_ori));
+fleur_blocs = decoupage(fleur_ori);
 
 
 %on dct2 les blocs
@@ -59,7 +59,7 @@ imshow(fleur_diff)
 
 %% lion
 lion_ori = imread('Lion.bmp');
-lion_blocs = double(decoupage(lion_ori));
+lion_blocs = decoupage(lion_ori);
 
 
 %on dct2 les blocs
