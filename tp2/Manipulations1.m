@@ -7,7 +7,7 @@ for b=1:size(voiture_blocs,3)
     voiture_blocs(:,:,b) = dct2(voiture_blocs(:,:,b));
 end
 
-
+w
 %on iDCT2 les blocs
 for b=1:size(voiture_blocs,3)
     voiture_blocs(:,:,b) = idct2(voiture_blocs(:,:,b));

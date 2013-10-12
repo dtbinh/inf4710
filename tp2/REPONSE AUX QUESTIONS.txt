@@ -1,3 +1,6 @@
+Charles Étienne Lalonde 1531686
+Gabriel Couvrette 1529572
+
 MANIPULATION1: 
 - Pour chacune des trois images, la manipulation1 n'a eu aucun effet sur la qualité de l'image.
 En effet, la différence entre initial et final donne une matrice complètement nulle. C'est
