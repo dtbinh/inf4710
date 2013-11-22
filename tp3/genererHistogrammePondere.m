@@ -32,8 +32,15 @@ end
 function [w] = pixelsSemblablesDuVoisinage(imgc, y, x)
 
     [height, width, channels] = size(imgc);
-    %au moins soi-meme
-    w = 1;
+    %au moins soi-meme !!!!NOPE!!!!
+    w = 0;
+        
+    %top-left
+    if(y>1 && x>1)
+        if(imgc(y-1,x-1) == imgc(y,x))
+            w=w+1;
+        end
+    end
     
     %top
     if(y>1)
@@ -42,9 +49,9 @@ function [w] = pixelsSemblablesDuVoisinage(imgc, y, x)
         end
     end
     
-    %bottom
-    if(y<height)
-        if(imgc(y+1,x) == imgc(y,x))
+    %top-right
+    if(y>1 && x<width)
+        if(imgc(y-1,x+1) == imgc(y,x))
             w=w+1;
         end
     end
@@ -62,5 +69,28 @@ function [w] = pixelsSemblablesDuVoisinage(imgc, y, x)
             w=w+1;
         end
     end
+    
+    %bottom-left
+    if(y<height&&x>1)
+        if(imgc(y+1,x-1) == imgc(y,x))
+            w=w+1;
+        end
+    end   
+    
+    %bottom
+    if(y<height)
+        if(imgc(y+1,x) == imgc(y,x))
+            w=w+1;
+        end
+    end
+    
+        
+    %bottom-right
+    if(y<height&&x<width)
+        if(imgc(y+1,x+1) == imgc(y,x))
+            w=w+1;
+        end
+    end   
+
         
 end

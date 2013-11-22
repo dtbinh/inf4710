@@ -12,31 +12,33 @@ function listedist = rechercher(nomImage,nomRepertoire)
 %****************************************************************
 % À compléter
 
+fprintf('Recherche... \n');
+        
 refImg = imread(nomImage);
 refHisto = genererHistogrammePondere(refImg, 4);
 listedist = [];
-
-files = dir(nomRepertoire);
+repIndex = strcat(nomRepertoire, '\index');
+        fprintf('%s\n', repIndex);
+files = dir(repIndex);
     for f = files'
-        if(isImage(f.name))
-            path = buildPath(f.name, nomRepertoire);
-            h = genererHistogrammePondere(imread(path), 4);
+        if(isText(f.name))
+            fprintf('%s\n', f.name);
+            path = buildPath(f.name, repIndex);
+            h = dlmread(path);
             d = calculerDistanceEuclidienne(refHisto, h);
-            listedist = insertInList(listedist, makeStruct(f.name,d));
+            listedist = insertInList(listedist, makeStruct(f.name(1:end-4),d));
         end
     end
+fprintf('Recherche completee. \n');
 end
 
-
-function isImage = isImage(filename)
+function isTxt = isText(filename)
     if(length(filename)<4)
-        isImage=false;
+        isTxt = 0;
         return;
     end
     
-    imagesExt = ['jpg', 'png', 'bmp', 'gif'];
-    ext = filename(end-3+1:end);
-    isImage = ismember(ext, imagesExt);
+    isTxt = filename(end-2:end) == 'txt';
 end
 
 function path = buildPath(filename, dir)
