@@ -13,7 +13,7 @@ function [ histogramme ] = genererHistogrammePondere( imageData, colorspace )
     for y=1:height
         for x=1:width
             index = rgbToIndex(imgC(y,x,1),imgC(y,x,2),imgC(y,x,3), colorspace);
-            histogramme(index) = histogramme(index)+pixelsSemblablesDuVoisinage(imgC, y, x); %% TODO: Inserer ponderation ici au lieu de 1 !!!
+            histogramme(index) = histogramme(index)+pixelsSemblablesDuVoisinage(imgC, y, x);
         end
     end
     
@@ -32,7 +32,7 @@ end
 function [w] = pixelsSemblablesDuVoisinage(imgc, y, x)
 
     [height, width, channels] = size(imgc);
-    %au moins soi-meme !!!!NOPE!!!!
+	
     w = 0;
         
     %top-left

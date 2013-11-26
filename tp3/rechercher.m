@@ -10,7 +10,6 @@ function listedist = rechercher(nomImage,nomRepertoire)
 % listedist: tableau de structures trié. Une structure comprend
 % 2 champs: le nom de l'image et la distance calculée.
 %****************************************************************
-% À compléter
 
 fprintf('Recherche... \n');
         

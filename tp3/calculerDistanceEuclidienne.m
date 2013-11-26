@@ -1,6 +1,4 @@
 function [ distance ] = calculerDistanceEuclidienne( histogrammeRef, histogrammeComp )
-%CALCULERDISTANCEEUCLIDIENNE Summary of this function goes here
-%   Detailed explanation goes here
     n = size(histogrammeRef);
     
     carreDeDiff = 0;
